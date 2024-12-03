@@ -565,6 +565,21 @@ public class RegisterTest extends AbstractTestRealmKeycloakTest {
         assertEquals("Öṏṏ", userRepresentation.getLastName());
     }
 
+    @Test
+    public void registerUserNotFirstnamePasswordPolicy() throws IOException {
+        try (RealmAttributeUpdater rau = getRealmAttributeUpdater().setPasswordPolicy("notFirstname").update()) {
+            loginPage.open();
+            assertTrue(loginPage.isCurrent());
+            loginPage.clickRegister();
+            registerPage.assertCurrent();
+            registerPage.register("firstName","lastName","registerUserNotFirstname@email",
+                "firstName","firstName","firstName");
+            assertTrue(loginPage.isCurrent());
+            assertEquals("Invalid password: Can not contain the firstname.", registerPage.getInputPasswordErrors().getPasswordError());
+                
+        }
+    }
+
     // KEYCLOAK-3266
     @Test
     public void registerUserNotUsernamePasswordPolicy() throws IOException {

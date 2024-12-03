@@ -23,7 +23,7 @@ import org.keycloak.models.KeycloakSessionFactory;
 
 public class NotContainsFirstnamePasswordPolicyProviderFactory implements PasswordPolicyProviderFactory {
 
-    public static final String ID = "notContainsFirsname";
+    public static final String ID = "notContainsFirstname";
 
     @Override
     public String getId() {
